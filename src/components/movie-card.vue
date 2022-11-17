@@ -33,11 +33,10 @@
                         <span class="text-gray-500 mx-1">امتیاز:</span> {{ movie.vote_average }}
                     </h2>
                 </div>
-                <font-awesome-icon v-if="isFavorite" @click="removeFromFavorites" icon="fa-solid fa-heart" />
-                <font-awesome-icon v-else @click="addToFavorites" icon="fa-regular fa-heart" />
-                <!-- <div>
-                    <span>افزودن به علاقه مندی ها</span>
-                </div> -->
+                <div class="text-xl flex justify-end">
+                    <font-awesome-icon v-if="isFavorite" @click="removeFromFavorites" icon="fa-solid fa-heart" />
+                    <font-awesome-icon v-else @click="addToFavorites" icon="fa-regular fa-heart" />
+                </div>
             </div>
         </div>
     </div>
@@ -45,7 +44,7 @@
 
 <script>
 import { ApiFactory } from '../api-factory.js';
-import { mapState, mapActions, mapGetters } from 'vuex';
+import {  mapActions } from 'vuex';
 
 export default {
     props: {
@@ -57,27 +56,25 @@ export default {
         }
     },
     methods: {
-        // ...mapActions([
-        //     ''
-        // ]),
+        ...mapActions([
+            'doAddToFavorites',
+            'doRemoveFromFavorites'
+        ]),
         getMovieImage(poster_path) {
             return `${ApiFactory.ImageUrl}/${poster_path}`;
         },
         addToFavorites() {
-            const favoritesString = localStorage.getItem('favorites');
-            const favoritesArray = JSON.parse(favoritesString);
-            favoritesArray.push({
+            this.doAddToFavorites({
                 id: this.movie.id,
                 name: this.movie.title
             })
-            localStorage.setItem('favorites', JSON.stringify(favoritesArray))
             this.isFavorite = !this.isFavorite;
         },
         removeFromFavorites() {
-            const favoritesString = localStorage.getItem('favorites');
-            const favoritesArray = JSON.parse(favoritesString);
-            const filteredFavoritesArray = favoritesArray.filter(movie => movie.id != this.movie.id);
-            localStorage.setItem('favorites', JSON.stringify(filteredFavoritesArray))
+            this.doRemoveFromFavorites({
+                id: this.movie.id,
+                name: this.movie.title
+            })
             this.isFavorite = !this.isFavorite;
         },
         checkFavoriteMovies() {
@@ -88,11 +85,6 @@ export default {
                 this.isFavorite = true;
             }
         }
-    },
-    computed: {
-        // ...mapGetters([
-        //     ''
-        // ]),
     },
     mounted() {
         this.checkFavoriteMovies();

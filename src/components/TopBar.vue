@@ -15,7 +15,7 @@
         ">
                 <div>
                     <RouterLink to="/" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-                        <img class="h-6 w-20 ml-2 text-blue-400" src="/src/assets/dolphin.png" />
+                        <img class=" w-20 ml-2 text-blue-400" src="/src/assets/oteacher-logo.png" />
                         <span class="text-dark hover:text-pink-700 font-bold text-2xl">خانه</span>
                     </RouterLink>
                 </div>

@@ -3,7 +3,7 @@
     <div class="flex pt-40">
         <div class="w-full max-w-xs m-auto bg-indigo-100 rounded p-5">
             <header>
-                <img class="w-20 mx-auto mb-5" src="/src/assets/dolphin.png"/>
+                <img class="w-20 mx-auto mb-5" src="/src/assets/oteacher-logo.png"/>
             </header>
             <div v-if="error.length != 0" class="text-xs mb-4 bg-pink-100 p-4  rounded-lg">
                 {{error[0]}}
